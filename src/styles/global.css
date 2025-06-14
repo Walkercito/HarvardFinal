@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+
+/* Navbar base */
+.navbar {
+  @apply bg-white border-b-4 border-black sticky top-0 z-50;
+  backdrop-filter: blur(10px);
+}
+
+/* Logo */
+.navbar-logo-icon {
+  @apply bg-red-400 border-4 border-black p-3 transform -rotate-3;
+  box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
+}
+
+/* Buttons base */
+.navbar-btn {
+  @apply border-2 border-black font-bold transition-all duration-200 flex items-center px-4 py-2;
+  box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
+}
+
+.navbar-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 6px 6px 0px 0px rgba(0,0,0,1);
+}
+
+/* Button variants */
+.navbar-btn-white {
+  @apply bg-white hover:bg-black hover:text-white;
+}
+
+.navbar-btn-blue {
+  @apply bg-blue-400 text-black hover:bg-blue-500;
+}
+
+.navbar-btn-green {
+  @apply bg-green-400 text-black hover:bg-green-500;
+}
+
+.navbar-btn-icon {
+  @apply p-2 bg-white hover:bg-black hover:text-white;
+}
+
+.navbar-btn-mobile {
+  @apply w-full justify-center py-3;
+}
+
+/* Mobile menu */
+.navbar-mobile-toggle {
+  @apply border-2 border-black p-2 transition-all duration-200;
+}
+
+.navbar-mobile-toggle:hover {
+  @apply bg-black text-white;
+}
+
+/* Animations */
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.navbar-logo {
+  animation: slideInLeft 0.8s ease-out 0.2s both;
+}
+
+.navbar-nav {
+  animation: slideInRight 0.8s ease-out 0.4s both;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .navbar-logo h1 {
+    font-size: 1.25rem;
+  }
+  
+  .navbar-logo p {
+    font-size: 0.75rem;
+  }
+}

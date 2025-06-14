@@ -1,0 +1,139 @@
+---
+// components/Navbar.astro
+---
+
+<nav class="navbar">
+  <div class="container mx-auto px-4 py-4">
+    <div class="flex justify-between items-center">
+      
+      <!-- Logo Section -->
+      <div class="flex items-center space-x-3 navbar-logo">
+        <div class="navbar-logo-icon">
+          <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-2xl font-black tracking-tight">Harvard TODO & Notes</h1>
+          <p class="text-sm font-bold text-gray-600">Final Project - CS50</p>
+        </div>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden md:flex items-center space-x-2 navbar-nav">
+        <button class="navbar-btn navbar-btn-white" aria-label="Search">
+          <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+          Search
+        </button>
+        
+        <button class="navbar-btn navbar-btn-blue" id="new-task-btn" aria-label="Create new task">
+          <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+          </svg>
+          New Task
+        </button>
+        
+        <button class="navbar-btn navbar-btn-green" id="new-note-btn" aria-label="Create new note">
+          <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C20.168 18.477 18.582 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+          </svg>
+          New Note
+        </button>
+        
+        <button class="navbar-btn navbar-btn-icon" id="settings-btn" aria-label="Settings">
+          <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button class="navbar-mobile-toggle md:hidden" id="mobile-menu-btn" aria-label="Toggle mobile menu">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div class="navbar-mobile-menu md:hidden mt-4 space-y-2 hidden" id="mobile-menu">
+      <button class="navbar-btn navbar-btn-white navbar-btn-mobile">
+        <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+        </svg>
+        Search
+      </button>
+      
+      <button class="navbar-btn navbar-btn-blue navbar-btn-mobile" id="new-task-btn-mobile">
+        <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+        </svg>
+        New Task
+      </button>
+      
+      <button class="navbar-btn navbar-btn-green navbar-btn-mobile" id="new-note-btn-mobile">
+        <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C20.168 18.477 18.582 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+        </svg>
+        New Note
+      </button>
+    </div>
+  </div>
+</nav>
+
+
+<script>
+  // Mobile menu toggle
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  mobileMenuBtn?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+  });
+
+  // GSAP Animations
+  if (typeof gsap !== 'undefined') {
+    gsap.fromTo('.navbar-logo', 
+      { opacity: 0, x: -50 }, 
+      { opacity: 1, x: 0, duration: 0.8, delay: 0.2 }
+    );
+
+    gsap.fromTo('.navbar-nav', 
+      { opacity: 0, x: 50 }, 
+      { opacity: 1, x: 0, duration: 0.8, delay: 0.4 }
+    );
+
+    const buttons = document.querySelectorAll('.navbar-btn');
+    buttons.forEach(button => {
+      button.addEventListener('mouseenter', () => {
+        gsap.to(button, { 
+          y: -2, 
+          boxShadow: '6px 6px 0px 0px rgba(0,0,0,1)', 
+          duration: 0.2 
+        });
+      });
+      
+      button.addEventListener('mouseleave', () => {
+        gsap.to(button, { 
+          y: 0, 
+          boxShadow: '4px 4px 0px 0px rgba(0,0,0,1)', 
+          duration: 0.2 
+        });
+      });
+    });
+  }
+
+  // Event listeners
+  const handleNewTask = () => console.log('Opening new task modal');
+  const handleNewNote = () => console.log('Opening new note modal');
+  const handleSettings = () => console.log('Opening settings');
+
+  document.getElementById('new-task-btn')?.addEventListener('click', handleNewTask);
+  document.getElementById('new-task-btn-mobile')?.addEventListener('click', handleNewTask);
+  document.getElementById('new-note-btn')?.addEventListener('click', handleNewNote);
+  document.getElementById('new-note-btn-mobile')?.addEventListener('click', handleNewNote);
+  document.getElementById('settings-btn')?.addEventListener('click', handleSettings);
+</script>
