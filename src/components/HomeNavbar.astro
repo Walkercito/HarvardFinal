@@ -1,0 +1,187 @@
+---
+// components/HomeNavbar.astro
+---
+
+<nav class="header">
+  <div class="container">
+    <div class="header-content">
+      
+      <!-- Logo Section -->
+      <div class="logo">
+        <div class="logo-icon">
+          <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <h1>Harvard TODO & Notes</h1>
+          <p>Final Project - CS50</p>
+        </div>
+      </div>
+
+      <!-- Desktop Navigation - Clerk User Button -->
+      <div class="nav-buttons">
+        <div id="clerk-user-button-desktop">
+          <!-- clerk goes here -->
+        </div>
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button class="navbar-mobile-toggle" id="mobile-menu-btn" aria-label="Toggle mobile menu">
+        <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div class="navbar-mobile-menu" id="mobile-menu">
+      <div class="flex justify-center p-4" id="clerk-user-button-mobile">
+        <!-- crek goes here -->
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  if (mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('active');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!mobileMenuBtn.contains(e.target as Node) && !mobileMenu.contains(e.target as Node)) {
+        mobileMenu.classList.remove('active');
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768) {
+        mobileMenu.classList.remove('active');
+      }
+    });
+  }
+
+  if (typeof gsap !== 'undefined') {
+    gsap.fromTo('.logo', 
+      { opacity: 0, x: -50 }, 
+      { opacity: 1, x: 0, duration: 0.8, delay: 0.2 }
+    );
+
+    gsap.fromTo('.nav-buttons', 
+      { opacity: 0, x: 50 }, 
+      { opacity: 1, x: 0, duration: 0.8, delay: 0.4 }
+    );
+
+    const buttons = document.querySelectorAll('.btn');
+    buttons.forEach(button => {
+      button.addEventListener('mouseenter', () => {
+        gsap.to(button, { 
+          y: -2, 
+          boxShadow: '6px 6px 0px 0px rgba(0,0,0,1)', 
+          duration: 0.2 
+        });
+      });
+      
+      button.addEventListener('mouseleave', () => {
+        gsap.to(button, { 
+          y: 0, 
+          boxShadow: '4px 4px 0px 0px rgba(0,0,0,1)', 
+          duration: 0.2 
+        });
+      });
+    });
+
+    mobileMenuBtn?.addEventListener('click', () => {
+      if (mobileMenu?.classList.contains('active')) {
+        gsap.fromTo('#clerk-user-button-mobile', 
+          { opacity: 0, y: -20 }, 
+          { opacity: 1, y: 0, duration: 0.3, delay: 0.1 }
+        );
+      }
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileMenu?.classList.contains('active')) {
+      mobileMenu.classList.remove('active');
+      mobileMenuBtn?.focus();
+    }
+  });
+
+  const trapFocus = (element: HTMLElement) => {
+    const focusableElements = element.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    
+    if (focusableElements.length === 0) return;
+    
+    const firstElement = focusableElements[0] as HTMLElement;
+    const lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
+
+    element.addEventListener('keydown', (e) => {
+      if (e.key === 'Tab') {
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
+            lastElement.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            firstElement.focus();
+            e.preventDefault();
+          }
+        }
+      }
+    });
+  };
+
+  if (mobileMenu) {
+    trapFocus(mobileMenu);
+  }
+
+  window.initializeClerkUserButton = function() {
+    console.log('Clerk User Button initialized');
+    
+    const clerkButtons = document.querySelectorAll('[data-clerk-id]');
+    clerkButtons.forEach(button => {
+      button.classList.add('clerk-custom-styling');
+    });
+  };
+</script>
+
+<style>
+  #clerk-user-button-desktop,
+  #clerk-user-button-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  :global(.clerk-custom-styling) {
+    border: 2px solid black !important;
+    box-shadow: 2px 2px 0px 0px rgba(0,0,0,1) !important;
+    transition: all 0.2s ease !important;
+  }
+
+  :global(.clerk-custom-styling:hover) {
+    transform: translateY(-2px) !important;
+    box-shadow: 4px 4px 0px 0px rgba(0,0,0,1) !important;
+  }
+
+  /* Responsive para el botón de Clerk */
+  @media (max-width: 768px) {
+    #clerk-user-button-desktop {
+      display: none;
+    }
+  }
+
+  @media (min-width: 769px) {
+    #clerk-user-button-mobile {
+      display: none;
+    }
+  }
+</style>
