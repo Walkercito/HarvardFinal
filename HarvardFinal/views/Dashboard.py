@@ -1,5 +1,5 @@
 import reflex as rx
-from .DashboardCard import DashboardCard
+from ..components.DashboardCard import DashboardCard
 
 
 def Dashboard() -> rx.Component:

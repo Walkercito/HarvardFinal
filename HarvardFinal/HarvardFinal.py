@@ -2,13 +2,15 @@ import reflex as rx
 from rxconfig import config
 
 from HarvardFinal.components.Navbar import Navbar
-from HarvardFinal.components.Dashboard import Dashboard
+from HarvardFinal.views.Dashboard import Dashboard
+from HarvardFinal.components.Footer import Footer
 
 
 def index() -> rx.Component:
     return rx.box(
         Navbar(),
         Dashboard(),
+        Footer(),
         class_name="bg-yellow-50 min-h-screen w-full"
     )
 
